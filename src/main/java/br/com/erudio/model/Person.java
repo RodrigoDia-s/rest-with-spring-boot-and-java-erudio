@@ -1,9 +1,15 @@
 package br.com.erudio.model;
 
-import java.io.Serializable;
+import jakarta.persistence.*;
 
+import java.io.Serializable;
+@Entity
+@Table(name= "person")
 public class Person implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name="first_name", nullable = false)
     private String firtName;
 
     public String getLastName() {
@@ -45,13 +51,14 @@ public class Person implements Serializable {
     public void setGender(String gender) {
         this.gender = gender;
     }
-
+    @Column(name="last_name", nullable = false)
     private String lastName;
+    @Column(name="address")
     private String address;
 
     public Person() {
 
     }
-
+    @Column(name="gender")
     private String gender;
 }
