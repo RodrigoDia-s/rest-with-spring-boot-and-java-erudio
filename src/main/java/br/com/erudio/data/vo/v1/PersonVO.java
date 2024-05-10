@@ -1,15 +1,12 @@
-package br.com.erudio.model;
-
-import jakarta.persistence.*;
+package br.com.erudio.data.vo.v1;
 
 import java.io.Serializable;
-@Entity
-@Table(name= "person")
-public class Person implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+
+public class PersonVO implements Serializable {
+
     private Long id;
-    @Column(name="first_name", nullable = false)
+
     private String firstName;
 
     public String getLastName() {
@@ -51,14 +48,14 @@ public class Person implements Serializable {
     public void setGender(String gender) {
         this.gender = gender;
     }
-    @Column(name="last_name", nullable = false)
+
     private String lastName;
-    @Column(name="address")
+
     private String address;
 
-    public Person() {
+    public PersonVO() {
 
     }
-    @Column(name="gender")
+
     private String gender;
 }

@@ -1,14 +1,13 @@
 package br.com.erudio.services;
 
 import br.com.erudio.exceptions.ResourceNotFoundException;
-import br.com.erudio.model.Person;
+import br.com.erudio.data.vo.v1.PersonVO;
+import br.com.erudio.mapper.Mapper;
 import br.com.erudio.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
 @Service
@@ -19,34 +18,37 @@ public class PersonService {
     @Autowired
     PersonRepository personRepository;
 
-    public Person findById(Long id) {
+    public PersonVO findById(Long id) {
         logger.info("Finding new person");
 
-        return personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+        var entity = personRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+        return Mapper.parseObject(entity, PersonVO.class) ;
     }
 
-    public List<Person> findAll() {
+    public List<PersonVO> findAll() {
         logger.info("Finding all people");
 
-        return personRepository.findAll();
+        return Mapper.parseListObject(personRepository.findAll(), PersonVO.class);
     }
 
-    public Person createPerson(Person person) {
+    public PersonVO createPerson(PersonVO person) {
         logger.info("Creating a person");
-        return personRepository.save(person);
+        var entity = Mapper.parseObject(person, br.com.erudio.model.Person.class);
+        return Mapper.parseObject(personRepository.save(entity), PersonVO.class);
     }
 
-    public Person updatePerson(Person person) {
+    public PersonVO updatePerson(PersonVO person) {
         logger.info("Updating a person");
         var entity = personRepository.findById(person.getId()).orElseThrow(()
                 -> new ResourceNotFoundException("No records found for this ID"));
 
         entity.setLastName(person.getLastName());
-        entity.setFirtName(person.getFirtName());
+        entity.setFirstName(person.getFirstName());
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
 
-        return personRepository.save(entity);
+        var entity2 = Mapper.parseObject(person, br.com.erudio.model.Person.class);
+        return Mapper.parseObject(personRepository.save(entity2), PersonVO.class);
     }
 
 
