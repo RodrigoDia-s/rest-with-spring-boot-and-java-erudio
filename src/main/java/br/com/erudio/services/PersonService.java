@@ -1,9 +1,11 @@
 package br.com.erudio.services;
 
+import br.com.erudio.data.vo.v2.PersonVOV2;
 import br.com.erudio.exceptions.ResourceNotFoundException;
 import br.com.erudio.data.vo.v1.PersonVO;
 import br.com.erudio.mapper.Mapper;
 import br.com.erudio.repository.PersonRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,5 +58,12 @@ public class PersonService {
         var entity = personRepository.findById(id).orElseThrow(()
                 -> new ResourceNotFoundException("No records found for this ID"));
         personRepository.delete(entity);
+    }
+
+    public PersonVOV2 createPersonV2(PersonVOV2 person) {
+        logger.info("Creating a person V2");
+        ModelMapper mapper = new ModelMapper();
+        var entity = Mapper.parseObject(person, br.com.erudio.model.Person.class);
+        return mapper.map(personRepository.save(entity), PersonVOV2.class);
     }
 }
