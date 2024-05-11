@@ -1,0 +1,2 @@
+
+INSERT INTO `person` VALUES (3,'Casa da mãe joana','Rodrigo','Trans-não binarie','Dias'),(4,'Casa da mãe joana','Rodrigo','Trans-não binarie','Dias'),(5,'Casa da mãe joana','Rodrigo','Trans-não binarie','Dias'),(6,'Casa da mãe joana','Rodrigo','Trans-não binarie','Dias'),(7,'Casa da mãe joana','Rodrigo','Trans-não binarie','Dias'),(8,'Casa da mãe joana','Rodrigo','Trans-não binarie','Dias'),(9,'Casa da mãe joana','Rodrigo','Trans-não binarie','Dias');
