@@ -1,12 +1,16 @@
 package br.com.erudio.data.vo.v1;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import java.io.Serializable;
 
-
+@JsonPropertyOrder({"id", "firstName", "lastName", "gender", "address"})
 public class PersonVO implements Serializable {
 
     private Long id;
-
+    @JsonProperty("first_name")
     private String firstName;
 
     public String getLastName() {
@@ -48,9 +52,9 @@ public class PersonVO implements Serializable {
     public void setGender(String gender) {
         this.gender = gender;
     }
-
+    @JsonProperty("last_name")
     private String lastName;
-
+    @JsonIgnore
     private String address;
 
     public PersonVO() {
