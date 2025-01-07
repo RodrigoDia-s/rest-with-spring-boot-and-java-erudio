@@ -18,36 +18,36 @@ public class PersonController {
     private PersonService personService;
 
 
-    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public PersonVO findById(@PathVariable(value = "id") Long id) throws Exception {
         return personService.findById(id);
     }
 
-    @GetMapping(value = "/findAll", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/findAll", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<PersonVO> findAll() throws Exception {
         return personService.findAll();
     }
 
-    @PostMapping(value = "/create", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PersonVO create(@RequestBody PersonVO person){
+    @PostMapping(value = "/create", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public PersonVO create(@RequestBody PersonVO person) {
         return personService.createPerson(person);
     }
 
-    @PostMapping(value = "/create/v2", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PersonVOV2 createV2(@RequestBody PersonVOV2 person){
+    @PostMapping(value = "/create/v2", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public PersonVOV2 createV2(@RequestBody PersonVOV2 person) {
         return personService.createPersonV2(person);
     }
 
 
-    @PutMapping(value = "/update", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public PersonVO update(@RequestBody PersonVO person){
+    @PutMapping(value = "/update", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE}, consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    public PersonVO update(@RequestBody PersonVO person) {
         return personService.updatePerson(person);
     }
 
     @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<Object> delete(@PathVariable(value = "id") Long id){
-         personService.deletePerson(id);
-         return ResponseEntity.noContent().build();
+    public ResponseEntity<Object> delete(@PathVariable(value = "id") Long id) {
+        personService.deletePerson(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
